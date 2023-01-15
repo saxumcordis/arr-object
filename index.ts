@@ -9,29 +9,29 @@ export class ArrObject extends Object {
                 }
         }
 
-        filter(callback: (key: string, value: any, objArr: ArrObject) => boolean): ArrObject {
+        filter(predicate: (key: string, value: any, objArr: ArrObject) => boolean): ArrObject {
                 return new ArrObject(Object.fromEntries(
                         Object.entries(this)
-                                .filter(([key, val]) => callback(key, val, this))
+                                .filter(([key, val]) => predicate(key, val, this))
                 ));
         }
 
-        map(callback: (value: any, key?: string) => any): ArrObject {
+        map(predicate: (value: any, key?: string) => any): ArrObject {
                 return new ArrObject(Object.fromEntries(
                         Object.entries(this)
-                                .map(([key, value]) => [key, callback(value, key)])
+                                .map(([key, value]) => [key, predicate(value, key)])
                 ))
         }
 
-        forEach(callback: (value: any, key?: string) => any): ArrObject {
+        forEach(predicate: (value: any, key?: string) => any): ArrObject {
                 Object.entries(this)
-                        .forEach(([key, value]) => [key, callback(value, key)])
+                        .forEach(([key, value]) => [key, predicate(value, key)])
                 return this;
         }
 
-        find(callback: (value: any, key?: string) => any): Record<string, any> | undefined {
+        find(predicate: (value: any, key?: string) => any): Record<string, any> | undefined {
                 const res = Object.entries(this)
-                        .find(([key, value]) => callback(value, key));
+                        .find(([key, value]) => predicate(value, key));
 
                 if (res) {
                         return new ArrObject({ [res[0]]: res[1] });
@@ -46,14 +46,14 @@ export class ArrObject extends Object {
                 return this
         }
 
-        some(callback: (value: any, key?: string) => boolean): boolean {
+        some(predicate: (value: any, key?: string) => boolean): boolean {
                 return Object.entries(this)
-                        .some(([key, value]) => callback(value, key))
+                        .some(([key, value]) => predicate(value, key))
         }
 
-        every(callback: (value: any, key?: string) => boolean): boolean {
+        every(predicate: (value: any, key?: string) => boolean): boolean {
                 return Object.entries(this)
-                        .every(([key, value]) => callback(value, key))
+                        .every(([key, value]) => predicate(value, key))
         }
 
 }
