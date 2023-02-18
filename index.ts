@@ -16,22 +16,22 @@ export class ArrObject extends Object {
                 ));
         }
 
-        map(predicate: (value: any, key?: string) => any): ArrObject {
+        map(predicate: (key: string, value: any) => any): ArrObject {
                 return new ArrObject(Object.fromEntries(
                         Object.entries(this)
-                                .map(([key, value]) => [key, predicate(value, key)])
+                                .map(([key, value]) => [key, predicate(key, value)])
                 ))
         }
 
-        forEach(predicate: (value: any, key?: string) => any): ArrObject {
+        forEach(predicate: (key: string, value: any) => any): ArrObject {
                 Object.entries(this)
-                        .forEach(([key, value]) => [key, predicate(value, key)])
+                        .forEach(([key, value]) => predicate(key, value))
                 return this;
         }
 
-        find(predicate: (value: any, key?: string) => any): Record<string, any> | undefined {
+        find(predicate: (key: string, value: any) => any): Record<string, any> | undefined {
                 const res = Object.entries(this)
-                        .find(([key, value]) => predicate(value, key));
+                        .find(([key, value]) => predicate(key, value));
 
                 if (res) {
                         return new ArrObject({ [res[0]]: res[1] });
@@ -46,14 +46,14 @@ export class ArrObject extends Object {
                 return this
         }
 
-        some(predicate: (value: any, key?: string) => boolean): boolean {
+        some(predicate: (key: string, value: any) => boolean): boolean {
                 return Object.entries(this)
-                        .some(([key, value]) => predicate(value, key))
+                        .some(([key, value]) => predicate(key, value))
         }
 
-        every(predicate: (value: any, key?: string) => boolean): boolean {
+        every(predicate: (key: string, value: any) => boolean): boolean {
                 return Object.entries(this)
-                        .every(([key, value]) => predicate(value, key))
+                        .every(([key, value]) => predicate(key, value))
         }
 
 }

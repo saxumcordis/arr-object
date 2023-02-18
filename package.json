@@ -2,11 +2,30 @@
   "name": "arr-object",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "main": "dist/index.ts",
+  "files": [
+    "./dist/index.js",
+    "./dist/index.d.ts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/saxumcordis/arr-object"
   },
-  "keywords": [],
-  "author": "",
-  "license": "GNU General Public License v3.0"
+  "scripts": {
+    "build": "rm -rf dist && npx tsc",
+    "test": "npm run build && node ./dist/test.js",
+    "prepublishOnly": "npm run test"
+  },
+  "keywords": [
+    "array",
+    "object",
+    "methods",
+    "iterable"
+  ],
+  "author": "saxumcordis (geosos)",
+  "license": "GNU General Public License v3.0",
+  "devDependencies": {
+    "@types/node": "^18.14.0",
+    "typescript": "^4.9.5"
+  }
 }
