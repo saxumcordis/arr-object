@@ -63,3 +63,12 @@ test('every', () => {
         assert.equal(new ArrObject({})
                 .every((_key, value) => Number.isInteger(value)), true);
 });
+
+test('methods in row', () => {
+        const obj = new ArrObject(EXAMPLE_OBJECT)
+                .filter((_key, value) => Number.isInteger(value))
+                .map((_key, value) => value * 2)
+                .concat({nickname: 'Eddy'})
+
+        assert.deepEqual(obj, {age: 60, nickname: 'Eddy'})
+})
